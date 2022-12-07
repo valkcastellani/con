@@ -1,0 +1,18 @@
+version: '2'
+services:
+  mysql-con:
+    image: mysql:8.0.31
+    volumes:
+      # O último parâmetro :Z é utilizado nas distribuições que tem SELinux para resolver a permissão do volume
+      - /con/mysql/data/:/var/lib/mysql/:Z
+      - ./create.sql:/docker-entrypoint-initdb.d/create.sql
+    environment:
+      - MYSQL_USER=admcon
+      - MYSQL_PASSWORD=j#0$BAPpyR@6aMBGala*
+      - MYSQL_ROOT_PASSWORD=ugcTUwC!8jcyP@hTUzWQ
+      - MYSQL_DATABASE=condb
+      - MYSQL_PORT=3306
+    ports:
+      - 3306:3306
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp --default-authentication-plugin=mysql_native_password
+    restart: always
